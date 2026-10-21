@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis ingresos - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Mis ingresos como tutor</h1>
+        <p>Total neto recibido (comision de la plataforma ya descontada): <strong th:text="'S/ ' + ${totalNeto}"></strong></p>
+        <a th:href="@{/tutor/ingresos/excel}" class="btn btn-success btn-sm mb-3">Descargar Excel</a>
+
+        <div th:if="${pagos == null or pagos.isEmpty()}" class="texto-muted">
+            Aun no has recibido ningun pago.
+        </div>
+
+        <table th:if="${pagos != null and !pagos.isEmpty()}">
+            <thead>
+            <tr><th>Estudiante</th><th>Curso</th><th>Fecha de pago</th><th>Monto total</th><th>Comision (15%)</th><th>Monto neto</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${pagos}">
+                <td th:text="${p.reserva.alumno.nombre}"></td>
+                <td th:text="${p.reserva.perfilTutor.curso.nombre}"></td>
+                <td th:text="${#temporals.format(p.fechaPago, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="'S/ ' + ${p.montoTotal}"></td>
+                <td th:text="'S/ ' + ${p.comision}"></td>
+                <td th:text="'S/ ' + ${p.montoNeto}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

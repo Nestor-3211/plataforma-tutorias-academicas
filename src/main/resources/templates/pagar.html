@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagar sesion - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Registrar pago de sesion</h1>
+
+        <p class="alerta-error" th:if="${error}" th:text="${error}"></p>
+
+        <p>
+            Tutor: <strong th:text="${reserva.perfilTutor.usuario.nombre}"></strong><br>
+            Curso: <strong th:text="${reserva.perfilTutor.curso.nombre}"></strong><br>
+            Horario: <span th:text="${#temporals.format(reserva.horario, 'dd/MM/yyyy HH:mm')}"></span><br>
+            Tarifa de referencia: S/ <span th:text="${reserva.perfilTutor.tarifaHora}"></span> / hora
+        </p>
+
+        <form th:action="@{/pagar}" method="post">
+            <input type="hidden" name="idReserva" th:value="${reserva.idReserva}">
+            <label for="montoTotal">Monto a pagar (S/)</label>
+            <input type="number" id="montoTotal" name="montoTotal" step="0.5" min="0" required>
+            <p class="texto-muted">La plataforma retiene una comision del 15%; el resto se acredita al tutor.</p>
+            <button type="submit">Confirmar pago</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

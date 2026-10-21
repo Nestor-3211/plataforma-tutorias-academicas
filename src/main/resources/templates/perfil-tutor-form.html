@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Publicar perfil de tutor - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Publicar perfil de tutor</h1>
+
+        <p class="alerta-error" th:if="${error}" th:text="${error}"></p>
+        <p class="alerta-ok" th:if="${mensaje}" th:text="${mensaje}"></p>
+
+        <form th:action="@{/tutor/perfil}" method="post">
+            <label for="idCurso">Curso que puedes dictar</label>
+            <select id="idCurso" name="idCurso" required>
+                <option th:each="c : ${cursos}" th:value="${c.idCurso}" th:text="${c.nombre} + ' (' + ${c.area} + ')'"></option>
+            </select>
+
+            <label for="tarifaHora">Tarifa por hora (S/)</label>
+            <input type="number" id="tarifaHora" name="tarifaHora" step="0.5" min="0" required>
+
+            <label>Dias disponibles</label>
+            <div class="dias-selector">
+                <label><input type="checkbox" name="dias" value="Lunes"> Lunes</label>
+                <label><input type="checkbox" name="dias" value="Martes"> Martes</label>
+                <label><input type="checkbox" name="dias" value="Miercoles"> Miercoles</label>
+                <label><input type="checkbox" name="dias" value="Jueves"> Jueves</label>
+                <label><input type="checkbox" name="dias" value="Viernes"> Viernes</label>
+                <label><input type="checkbox" name="dias" value="Sabado"> Sabado</label>
+                <label><input type="checkbox" name="dias" value="Domingo"> Domingo</label>
+            </div>
+
+            <label>Horario disponible</label>
+            <div class="rango-horario">
+                <div>
+                    <span>Desde</span>
+                    <input type="time" name="horaInicio">
+                </div>
+                <div>
+                    <span>Hasta</span>
+                    <input type="time" name="horaFin">
+                </div>
+            </div>
+
+            <button type="submit">Publicar perfil</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Mis perfiles publicados</h2>
+        <table th:if="${misPerfiles != null and !misPerfiles.isEmpty()}">
+            <thead>
+            <tr><th>Curso</th><th>Tarifa/hora</th><th>Disponibilidad</th><th>Calificacion</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${misPerfiles}">
+                <td th:text="${p.curso.nombre}"></td>
+                <td th:text="'S/ ' + ${p.tarifaHora}"></td>
+                <td th:text="${p.disponibilidad}"></td>
+                <td th:text="${p.calificacionProm}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="texto-muted" th:if="${misPerfiles == null or misPerfiles.isEmpty()}">
+            Aun no has publicado ningun perfil de tutor.
+        </p>
+    </div>
+</main>
+</body>
+</html>

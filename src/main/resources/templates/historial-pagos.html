@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de pagos - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Historial de pagos</h1>
+        <a th:href="@{/historial-pagos/excel}" class="btn btn-success btn-sm mb-3">Descargar Excel</a>
+
+        <div th:if="${pagos == null or pagos.isEmpty()}" class="texto-muted">
+            Aun no has registrado ningun pago.
+        </div>
+
+        <table th:if="${pagos != null and !pagos.isEmpty()}">
+            <thead>
+            <tr><th>Tutor</th><th>Curso</th><th>Fecha de pago</th><th>Monto pagado</th><th>Comision plataforma</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${pagos}">
+                <td th:text="${p.reserva.perfilTutor.usuario.nombre}"></td>
+                <td th:text="${p.reserva.perfilTutor.curso.nombre}"></td>
+                <td th:text="${#temporals.format(p.fechaPago, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="'S/ ' + ${p.montoTotal}"></td>
+                <td th:text="'S/ ' + ${p.comision}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

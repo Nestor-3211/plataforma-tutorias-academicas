@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="navbar" th:fragment="nav">
+    <a class="marca" th:href="@{/}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+        Plataforma de Tutorías
+    </a>
+    <nav>
+        <a th:unless="${esTutorActual}" th:href="@{/buscar}">Buscar tutores</a>
+        <span th:if="${nombreUsuarioActual != null}">
+            <a th:if="${esTutorActual}" th:href="@{/tutor/perfil/nuevo}">Publicar perfil</a>
+            <a th:unless="${esTutorActual}" th:href="@{/mis-reservas}">Mis reservas</a>
+            <a th:unless="${esTutorActual}" th:href="@{/historial-pagos}">Historial de pagos</a>
+            <a th:if="${esTutorActual}" th:href="@{/tutor/reservas}">Reservas como tutor</a>
+            <a th:if="${esTutorActual}" th:href="@{/tutor/ingresos}">Mis ingresos</a>
+            <span th:text="'Hola, ' + ${nombreUsuarioActual}"></span>
+            <a th:href="@{/logout}">Salir</a>
+        </span>
+        <span th:if="${nombreUsuarioActual == null}">
+            <a th:href="@{/login}">Iniciar sesion</a>
+            <a th:href="@{/registro}">Registrarse</a>
+        </span>
+    </nav>
+</header>
+</body>
+</html>
