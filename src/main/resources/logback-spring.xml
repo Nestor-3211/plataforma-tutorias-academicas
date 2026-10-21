@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Configuracion de Logback (la libreria de logs que ya trae Spring Boot).
+  - CONSOLA: lo que se ve en la pestana Run de IntelliJ.
+  - ARCHIVO: guarda lo mismo en logs/tutorias.log, un archivo por dia
+    (o cada 5 MB) y se borran solos a los 7 dias.
+  Los logger.info(...) que ya estan en los Service (reservas, pagos, usuarios,
+  Excel) salen por aqui.
+-->
+<configuration>
+
+    <!-- Trae el formato de colores y los valores por defecto de Spring Boot -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_DIR" value="logs"/>
+
+    <appender name="CONSOLA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ARCHIVO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/tutorias.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/tutorias.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>50MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Mi codigo: detalle (DEBUG). Todo lo demas (Spring, Hibernate): solo INFO o mas. -->
+    <logger name="pe.utp.tutorias" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLA"/>
+        <appender-ref ref="ARCHIVO"/>
+    </root>
+
+</configuration>
