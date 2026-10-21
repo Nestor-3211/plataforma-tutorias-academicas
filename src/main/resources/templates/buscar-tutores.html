@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar tutores - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Buscar tutores</h1>
+        <form th:action="@{/buscar}" method="get" class="filtros">
+            <div>
+                <label for="curso">Curso</label>
+                <input type="text" id="curso" name="curso" th:value="${curso}" placeholder="Ej: Programacion">
+            </div>
+            <div>
+                <label for="tarifaMax">Tarifa maxima (S/)</label>
+                <input type="number" id="tarifaMax" name="tarifaMax" step="0.5" min="0" th:value="${tarifaMax}">
+            </div>
+            <div>
+                <label for="calificacionMin">Calificacion minima</label>
+                <input type="number" id="calificacionMin" name="calificacionMin" step="0.1" min="0" max="5" th:value="${calificacionMin}">
+            </div>
+            <div>
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Resultados</h2>
+        <div th:if="${resultados == null or resultados.isEmpty()}" class="texto-muted">
+            No se encontraron tutores con esos filtros.
+        </div>
+        <div class="resultado" th:each="p : ${resultados}">
+            <div>
+                <strong th:text="${p.usuario.nombre}"></strong>
+                &mdash; <span th:text="${p.curso.nombre}"></span>
+                <div class="texto-muted">
+                    Tarifa: S/ <span th:text="${p.tarifaHora}"></span> / hora
+                    &middot; Calificacion: <span th:text="${p.calificacionProm}"></span> / 5
+                    &middot; <span th:text="${p.disponibilidad}"></span>
+                </div>
+            </div>
+            <div class="acciones-fila">
+                <a class="btn" th:href="@{/reserva/nueva(idPerfil=${p.idPerfil})}">Reservar sesion</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

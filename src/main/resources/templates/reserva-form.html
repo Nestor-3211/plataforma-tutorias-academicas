@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservar sesion - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Reservar sesion de tutoria</h1>
+
+        <p class="alerta-error" th:if="${error}" th:text="${error}"></p>
+
+        <p>
+            Tutor: <strong th:text="${perfil.usuario.nombre}"></strong><br>
+            Curso: <strong th:text="${perfil.curso.nombre}"></strong><br>
+            Tarifa: S/ <span th:text="${perfil.tarifaHora}"></span> / hora<br>
+            Disponibilidad indicada por el tutor: <span th:text="${perfil.disponibilidad}"></span>
+        </p>
+
+        <form th:action="@{/reserva}" method="post">
+            <input type="hidden" name="idPerfil" th:value="${perfil.idPerfil}">
+            <label for="horario">Fecha y hora deseada</label>
+            <input type="datetime-local" id="horario" name="horario" required>
+            <button type="submit">Confirmar reserva</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

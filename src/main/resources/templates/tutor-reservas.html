@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas de mis cursos - Plataforma de Tutorías</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Reservas de mis cursos (como tutor)</h1>
+        <p><a th:href="@{/tutor/ingresos}">Ver mis ingresos</a></p>
+
+        <div th:if="${reservas == null or reservas.isEmpty()}" class="texto-muted">
+            Todavia no tienes reservas de estudiantes.
+        </div>
+
+        <table th:if="${reservas != null and !reservas.isEmpty()}">
+            <thead>
+            <tr><th>Estudiante</th><th>Curso</th><th>Horario</th><th>Estado</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${reservas}">
+                <td th:text="${r.alumno.nombre}"></td>
+                <td th:text="${r.perfilTutor.curso.nombre}"></td>
+                <td th:text="${#temporals.format(r.horario, 'dd/MM/yyyy HH:mm')}"></td>
+                <td>
+                    <span class="badge"
+                          th:classappend="'badge-' + ${r.estado.name().toLowerCase()}"
+                          th:text="${r.estado}"></span>
+                </td>
+                <td class="acciones-fila" th:if="${r.estado.name() == 'PENDIENTE'}">
+                    <form class="inline" th:action="@{/tutor/reservas/{id}/confirmar(id=${r.idReserva})}" method="post">
+                        <button type="submit">Confirmar</button>
+                    </form>
+                    <form class="inline" th:action="@{/tutor/reservas/{id}/cancelar(id=${r.idReserva})}" method="post">
+                        <button type="submit" class="btn-peligro">Cancelar</button>
+                    </form>
+                </td>
+                <td class="acciones-fila" th:if="${r.estado.name() == 'CONFIRMADA'}">
+                    <form class="inline" th:action="@{/tutor/reservas/{id}/completar(id=${r.idReserva})}" method="post">
+                        <button type="submit">Marcar completada</button>
+                    </form>
+                </td>
+                <td th:if="${r.estado.name() != 'PENDIENTE' and r.estado.name() != 'CONFIRMADA'}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

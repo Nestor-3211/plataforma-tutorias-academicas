@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Plataforma de Tutorías - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: nav}"></div>
+<main>
+    <div class="card">
+        <h1>Plataforma de Tutorías Académicas Universitarias</h1>
+        <p class="alerta-error" th:if="${error}" th:text="${error}"></p>
+        <p>Conecta con estudiantes tutores de tu propia universidad, revisa su calificacion
+           y reserva una sesion de tutoria para el curso que necesitas reforzar.</p>
+        <p th:if="${nombreUsuarioActual == null}">
+            <a class="btn" th:href="@{/registro}">Crear cuenta</a>
+            <a class="btn btn-secundario" th:href="@{/login}">Ya tengo cuenta</a>
+        </p>
+        <p th:if="${nombreUsuarioActual != null}">
+            <a th:unless="${esTutorActual}" class="btn" th:href="@{/buscar}">Buscar un tutor</a>
+            <a th:if="${esTutorActual}" class="btn btn-secundario" th:href="@{/tutor/perfil/nuevo}">Publicar mi perfil de tutor</a>
+        </p>
+    </div>
+<!--
+    <div class="card">
+        <h2>Avance actual de la plataforma</h2>
+        <p class="texto-muted">
+            Este avance cubre los procesos BPM "Perfiles y Busqueda", "Reservar Sesion"
+            y "Registrar pago de sesion": registro/login, publicacion de perfil de
+            tutor, busqueda de tutores por curso, creacion/confirmacion/cancelacion de
+            reservas, marcar una sesion como completada, y el pago de la sesion con
+            calculo automatico de la comision de la plataforma. "Calificar y dejar
+            resena" y "Generar reportes administrativos" quedan para el siguiente
+            incremento.
+        </p>
+    </div>
+-->
+</main>
+</body>
+</html>
