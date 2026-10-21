@@ -1,0 +1,30 @@
+# Copiar este archivo como  src/main/resources/application.properties
+# y completar los valores marcados con TU_...  (application.properties NO se sube a GitHub)
+
+spring.application.name=plataforma-tutorias
+
+# Conexion a MySQL. La base de datos se crea sola (createDatabaseIfNotExist=true),
+# solo hay que tener MySQL encendido. Si tu MySQL no tiene contrasena, deja la clave vacia.
+spring.datasource.url=jdbc:mysql://localhost:3306/plataforma_tutorias?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Lima
+spring.datasource.username=TU_USUARIO_MYSQL
+spring.datasource.password=TU_CONTRASENA_MYSQL
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Hibernate/JPA: en desarrollo se deja que JPA cree/actualice el esquema
+# a partir de las entidades.
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=true
+
+server.port=8080
+
+# Logging (Logback). El archivo de logs y su rotacion se configuran en
+# src/main/resources/logback-spring.xml (se guarda en logs/tutorias.log).
+logging.level.root=INFO
+logging.level.pe.utp.tutorias=DEBUG
+
+# Cuenta de administrador: se crea sola al arrancar la aplicacion si ese correo todavia no existe.
+# (El rol "Administrador" no se puede elegir en el formulario de registro.)
+tutorias.admin.nombre=Administrador
+tutorias.admin.correo=TU_CORREO_ADMIN
+tutorias.admin.contrasena=TU_CONTRASENA_ADMIN

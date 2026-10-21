@@ -1,0 +1,26 @@
+# --- Maven / compilacion ---
+target/
+out/
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+
+# --- Smart Tomcat (de la version anterior del proyecto) ---
+.smarttomcat/
+
+# --- Logs generados por Logback ---
+logs/
+*.log
+
+# --- Configuracion con claves: usar application.properties.example ---
+src/main/resources/application.properties
+application-local.properties
+.env
+
+# --- Archivos sueltos / comprimidos ---
+*.zip
+
+# --- Sistema operativo ---
+.DS_Store
+Thumbs.db
