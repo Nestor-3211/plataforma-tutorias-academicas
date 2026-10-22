@@ -110,7 +110,6 @@ indicadores (KPIs) de la plataforma en un dashboard.
 ## Documentacion
 
 Los documentos estan en la carpeta `docs/`: descripcion del sistema,
-API y funciones, arquitectura, manual de usuario, guias paso a paso, FAQs,
-Javadoc y evidencias de las librerias.
+API y funciones, arquitectura, manual de usuario, guias paso a paso, FAQs y evidencias de las librerias.
 
 
