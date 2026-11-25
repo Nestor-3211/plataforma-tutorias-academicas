@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Configuracion de Logback (la libreria de logs que ya trae Spring Boot).
-  - CONSOLA: lo que se ve en la pestana Run de IntelliJ.
-  - ARCHIVO: guarda lo mismo en logs/tutorias.log, un archivo por dia
-    (o cada 5 MB) y se borran solos a los 7 dias.
-  Los logger.info(...) que ya estan en los Service (reservas, pagos, usuarios,
-  Excel) salen por aqui.
--->
+
 <configuration>
 
     <!-- Trae el formato de colores y los valores por defecto de Spring Boot -->
@@ -35,7 +28,6 @@
         </encoder>
     </appender>
 
-    <!-- Mi codigo: detalle (DEBUG). Todo lo demas (Spring, Hibernate): solo INFO o mas. -->
     <logger name="pe.utp.tutorias" level="DEBUG"/>
 
     <root level="INFO">

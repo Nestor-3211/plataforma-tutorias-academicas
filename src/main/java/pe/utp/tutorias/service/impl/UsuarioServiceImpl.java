@@ -59,7 +59,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = new Usuario();
         usuario.setNombre(nombreLimpio);
         usuario.setCorreo(correoLimpio);
-        // Seguridad: jamas se persiste la contrasena en texto plano.
+        // Seguridad:
         usuario.setContrasenaHash(passwordEncoder.encode(contrasenaPlana));
         usuario.setTipoUsuario(tipo);
         if (idUniversidad != null) {
