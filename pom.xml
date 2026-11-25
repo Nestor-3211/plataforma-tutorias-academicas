@@ -55,7 +55,6 @@
             <artifactId>spring-security-crypto</artifactId>
         </dependency>
 
-        <!-- Logging (Logback ya viene con Spring Boot; se declara explicito por el silabo) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -78,7 +77,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Pruebas (TDD) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
